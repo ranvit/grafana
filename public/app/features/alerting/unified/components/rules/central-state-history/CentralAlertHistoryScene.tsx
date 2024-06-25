@@ -57,7 +57,11 @@ export const CentralAlertHistoryScene = () => {
       new SceneTimePicker({}),
       new SceneRefreshPicker({}),
     ],
-    $timeRange: new SceneTimeRange({}), //needed for using the time range sync in the url
+    // use default imte range as from 1 hour ago to now
+    $timeRange: new SceneTimeRange({
+      from: 'now-1h',
+      to: 'now',
+    }),
     $variables: new SceneVariableSet({
       variables: [filterVariable],
     }),
