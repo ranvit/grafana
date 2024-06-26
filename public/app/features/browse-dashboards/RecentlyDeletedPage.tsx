@@ -35,10 +35,7 @@ const RecentlyDeletedPage = memo(() => {
     );
   }, [dispatch, stateManager]);
 
-  // TODO: For fixing the EmptyState I need some identifier to distinguish between the initial search result
-  //  and the one created by using FilterInput
-
-  if (searchState.loading === false && searchState.result?.totalRows === 0) {
+  if (searchState.loading === false && searchState.query.length === 0 && searchState.result?.totalRows === 0) {
     return (
       <Page navId="dashboards/recently-deleted">
         <Page.Contents>
