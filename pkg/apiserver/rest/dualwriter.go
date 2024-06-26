@@ -9,6 +9,7 @@ import (
 
 	"github.com/grafana/grafana/pkg/infra/kvstore"
 	"github.com/prometheus/client_golang/prometheus"
+	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apiserver/pkg/registry/rest"
@@ -232,4 +233,16 @@ func removeMeta(obj runtime.Object) []byte {
 		return nil
 	}
 	return jsonObj
+}
+
+func getName(o runtime.Object) string {
+	if o == nil {
+		return ""
+	}
+	accessor, err := meta.Accessor(o)
+	if err != nil {
+		klog.Error("failed to get object name: ", err)
+		return ""
+	}
+	return accessor.GetName()
 }
